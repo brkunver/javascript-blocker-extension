@@ -10,3 +10,4 @@ Planning to add:
 
 - internationalization
 - import / export blocked js urls
+- block count
