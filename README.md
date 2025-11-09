@@ -1,3 +1,5 @@
-# Wxt + Svelte + Tailwind + Typescript
+# Javascript Blocker Extension
 
-Web extension starter
+Block javascript on websites
+
+Chrome Web Store: "url will be added"
