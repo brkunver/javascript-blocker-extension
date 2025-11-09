@@ -1,3 +1,42 @@
+import { blockedJsUrls } from "@@/utils/storage"
+
 export default defineBackground(() => {
-  console.log("Hello background!", { id: browser.runtime.id })
+  async function updateRules(urls: string[] | null | undefined) {
+    try {
+      // Clean the incoming URL list: remove spaces and filter out empty elements.
+      const validUrls = (urls || []).map(u => u.trim()).filter(Boolean)
+
+      const oldRules = await browser.declarativeNetRequest.getDynamicRules()
+      const oldRuleIds = oldRules.map(r => r.id)
+
+      const newRules = validUrls.map((url, i) => ({
+        id: i + 1, // Recreate rule IDs
+        priority: 1,
+        action: { type: "block" as const },
+        condition: {
+          // Use wildcard if already present in URL, otherwise add to beginning and end.
+          urlFilter: url.includes("*") ? url : `*${url}*`,
+          resourceTypes: ["script" as const],
+        },
+      }))
+
+      // Remove old rules and add new ones in a single atomic operation
+      await browser.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: oldRuleIds,
+        addRules: newRules,
+      })
+
+      console.log("JavaScript Blocker: Rules updated successfully.", newRules)
+    } catch (error) {
+      console.error("JavaScript Blocker: Error updating rules:", error)
+    }
+  }
+
+  // Load existing rules when the extension starts
+  blockedJsUrls.getValue().then(updateRules)
+
+  // Monitor changes in storage and update rules
+  blockedJsUrls.watch((newValue, oldValue) => {
+    updateRules(newValue)
+  })
 })
