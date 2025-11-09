@@ -51,7 +51,7 @@
   }
 </script>
 
-<div class="p-6 max-w-md mx-auto">
+<main class="p-6 max-w-lg mx-auto min-h-[400px] min-w-[400px]">
   <h1 class="text-2xl font-bold mb-4">JS Blocker</h1>
 
   <div class="flex gap-2 mb-4">
@@ -79,4 +79,4 @@
       <li class="text-gray-500 text-center py-4">No blocked JS yet</li>
     {/each}
   </ul>
-</div>
+</main>
