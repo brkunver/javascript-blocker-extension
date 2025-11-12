@@ -1,4 +1,4 @@
-import { blockedJsUrls } from "@@/utils/storage"
+import { blockedJsUrls, isExtensionActive } from "@@/utils/storage"
 
 export default defineBackground(() => {
   async function updateRules(urls: string[] | null | undefined) {
@@ -8,6 +8,14 @@ export default defineBackground(() => {
 
       const oldRules = await browser.declarativeNetRequest.getDynamicRules()
       const oldRuleIds = oldRules.map(r => r.id)
+      const activeStatus = await isExtensionActive.getValue()
+
+      if (!activeStatus) {
+        await browser.declarativeNetRequest.updateDynamicRules({
+          removeRuleIds: oldRuleIds,
+        })
+        return
+      }
 
       const newRules = validUrls.map((url, i) => ({
         id: i + 1, // Recreate rule IDs
@@ -34,9 +42,14 @@ export default defineBackground(() => {
 
   // Load existing rules when the extension starts
   blockedJsUrls.getValue().then(updateRules)
+  isExtensionActive.getValue().then(() => updateRules(null))
 
   // Monitor changes in storage and update rules
-  blockedJsUrls.watch((newValue, oldValue) => {
+  blockedJsUrls.watch(newValue => {
     updateRules(newValue)
+  })
+
+  isExtensionActive.watch(() => {
+    updateRules(null)
   })
 })
