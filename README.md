@@ -10,7 +10,7 @@ Planning to add:
 
 - [x] import / export blocked js urls
 - [x] disable globally
+- [x] disable enable scripts
 - [ ] block count
 - [ ] disable for specific sites
-- [ ] disable enable scripts
 - [ ] internationalization
