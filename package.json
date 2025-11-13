@@ -1,6 +1,6 @@
 {
   "name": "javascript-blocker-extension",
-  "description": "manifest.json description",
+  "description": "Block user defined javascript on websites",
   "private": true,
   "version": "1.3.0",
   "type": "module",
