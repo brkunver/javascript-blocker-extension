@@ -94,61 +94,57 @@
   }
 </script>
 
-<main class="p-6 max-w-lg mx-auto min-h-[400px] min-w-[400px]">
-  <h1 class="text-2xl font-bold mb-4">JS Blocker</h1>
+<main class="p-6 max-w-lg mx-auto min-h-[400px] min-w-[400px] bg-gray-50 rounded-lg shadow-lg">
+  <h1 class="text-3xl font-extrabold mb-6 text-center text-gray-800">JS Blocker</h1>
 
-  <div class="flex gap-2 mb-4">
+  <div class="flex gap-3 mb-4">
     <input
       bind:value={input}
       type="text"
       placeholder="https://example.com/bad.js"
-      class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
       onkeydown={e => e.key === "Enter" && addUrl()}
     />
     <button
       onclick={addUrl}
-      class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer"
+      class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out shadow-md"
     >
       Add
     </button>
   </div>
 
-  <div class="flex gap-2 mb-4">
+  <div class="flex gap-3 mb-6">
     <button
       onclick={exportRules}
-      class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 cursor-pointer transition"
+      class="flex-1 px-5 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200 ease-in-out shadow-md"
     >
       Export Rules
     </button>
-    <label class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 cursor-pointer transition">
+    <label class="flex-1 px-5 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-200 ease-in-out cursor-pointer text-center shadow-md">
       Import Rules
       <input type="file" class="hidden" onchange={importRules} accept=".json" />
     </label>
   </div>
 
-  <ul class="space-y-2">
+  <ul class="space-y-3 border-t border-gray-200 pt-4">
     {#each urls as url, i}
-      <li class="flex items-center justify-between bg-white p-3 rounded-md shadow-sm">
-        <code class="text-sm text-gray-700 break-all">{url.url}</code>
-        <div class="flex items-center">
+      <li class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <code class="text-sm text-gray-700 break-all font-mono">{url.url}</code>
+        <div class="flex items-center gap-2">
           <button
             onclick={() => toggleUrlStatus(i)}
-            class="ml-2 text-sm cursor-pointer px-2 py-1 rounded-md"
-            class:text-white={url.active}
-            class:bg-gray-500={!url.active}
-            class:bg-green-600={url.active}
-            class:hover:bg-gray-600={!url.active}
-            class:hover:bg-green-700={url.active}
+            class="text-sm font-medium px-3 py-1 rounded-md transition duration-200 ease-in-out shadow-sm
+            {url.active ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-gray-300 text-gray-800 hover:bg-gray-400'}"
           >
             {url.active ? "Deactivate" : "Activate"}
           </button>
-          <button onclick={() => removeUrl(i)} class="ml-2 text-red-600 hover:text-red-800 text-sm cursor-pointer">
+          <button onclick={() => removeUrl(i)} class="text-red-600 hover:text-red-800 text-sm font-medium transition duration-200 ease-in-out">
             Remove
           </button>
         </div>
       </li>
     {:else}
-      <li class="text-gray-500 text-center py-4">No blocked JS yet</li>
+      <li class="text-gray-500 text-center py-6 text-md italic">No blocked JS yet. Add a URL to get started!</li>
     {/each}
   </ul>
 </main>
