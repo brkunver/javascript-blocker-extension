@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { blockedJsUrls } from "@@/utils/storage"
+  import { blockedJsUrls, type blockedUrl } from "@@/utils/storage"
 
-  let urls = $state<string[]>([])
+  let urls = $state<blockedUrl[]>([])
   let input = $state<string>("")
 
   $effect(() => {
@@ -34,19 +34,25 @@
     }
 
     // Check for duplicates before adding
-    if (urls.includes(processedInput)) {
+    if (urls.some(item => item.url === processedInput)) {
       alert("This URL is already in the list.")
       input = "" // Clear input even if it's a duplicate
       return
     }
 
-    const newUrls = [...urls, processedInput]
+    const newUrls = [...urls, { url: processedInput, active: true }]
     await blockedJsUrls.setValue(newUrls)
     input = ""
   }
 
   async function removeUrl(index: number) {
     const newUrls = urls.filter((_, i) => i !== index)
+    await blockedJsUrls.setValue(newUrls)
+  }
+
+  async function toggleUrlStatus(index: number) {
+    const newUrls = [...urls]
+    newUrls[index].active = !newUrls[index].active
     await blockedJsUrls.setValue(newUrls)
   }
 
@@ -69,7 +75,12 @@
     reader.onload = async e => {
       try {
         const importedUrls = JSON.parse(e.target?.result as string)
-        if (Array.isArray(importedUrls) && importedUrls.every(item => typeof item === "string")) {
+        if (
+          Array.isArray(importedUrls) &&
+          importedUrls.every(
+            item => typeof item === "object" && typeof item.url === "string" && typeof item.active === "boolean",
+          )
+        ) {
           await blockedJsUrls.setValue(importedUrls)
           alert("Rules imported successfully!")
         } else {
@@ -118,10 +129,23 @@
   <ul class="space-y-2">
     {#each urls as url, i}
       <li class="flex items-center justify-between bg-white p-3 rounded-md shadow-sm">
-        <code class="text-sm text-gray-700 break-all">{url}</code>
-        <button onclick={() => removeUrl(i)} class="ml-2 text-red-600 hover:text-red-800 text-sm cursor-pointer">
-          Remove
-        </button>
+        <code class="text-sm text-gray-700 break-all">{url.url}</code>
+        <div class="flex items-center">
+          <button
+            onclick={() => toggleUrlStatus(i)}
+            class="ml-2 text-sm cursor-pointer px-2 py-1 rounded-md"
+            class:text-white={url.active}
+            class:bg-gray-500={!url.active}
+            class:bg-green-600={url.active}
+            class:hover:bg-gray-600={!url.active}
+            class:hover:bg-green-700={url.active}
+          >
+            {url.active ? "Deactivate" : "Activate"}
+          </button>
+          <button onclick={() => removeUrl(i)} class="ml-2 text-red-600 hover:text-red-800 text-sm cursor-pointer">
+            Remove
+          </button>
+        </div>
       </li>
     {:else}
       <li class="text-gray-500 text-center py-4">No blocked JS yet</li>
