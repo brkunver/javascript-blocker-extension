@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { blockedJsUrls, type blockedUrl } from "@@/utils/storage"
+  import { blockedJsUrls, isExtensionActive, type blockedUrl } from "@@/utils/storage"
 
   let urls = $state<blockedUrl[]>([])
   let input = $state<string>("")
+  let extensionActive = $state<boolean>(true)
 
   $effect(() => {
     blockedJsUrls.getValue().then(loadedUrls => {
@@ -15,6 +16,22 @@
 
     return () => unwatch()
   })
+
+  $effect(() => {
+    isExtensionActive.getValue().then(active => {
+      extensionActive = active
+    })
+
+    const unwatch = isExtensionActive.watch(newActive => {
+      extensionActive = newActive
+    })
+
+    return () => unwatch()
+  })
+
+  async function toggleExtension() {
+    await isExtensionActive.setValue(!extensionActive)
+  }
 
   async function addUrl() {
     let processedInput = input.trim()
@@ -97,6 +114,16 @@
 <main class="p-6 max-w-lg mx-auto min-h-[400px] min-w-[400px] bg-gray-50 rounded-lg shadow-lg">
   <h1 class="text-3xl font-extrabold mb-6 text-center text-gray-800">JS Blocker</h1>
 
+  <div class="mb-6">
+    <button
+      onclick={toggleExtension}
+      class="w-full px-5 py-3 font-bold text-white rounded-lg transition duration-200 ease-in-out shadow-md text-lg
+      {extensionActive ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}"
+    >
+      {extensionActive ? "✓ Extension Active" : "✗ Extension Inactive"}
+    </button>
+  </div>
+
   <div class="flex gap-3 mb-4">
     <input
       bind:value={input}
@@ -120,7 +147,9 @@
     >
       Export Rules
     </button>
-    <label class="flex-1 px-5 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-200 ease-in-out cursor-pointer text-center shadow-md">
+    <label
+      class="flex-1 px-5 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-200 ease-in-out cursor-pointer text-center shadow-md"
+    >
       Import Rules
       <input type="file" class="hidden" onchange={importRules} accept=".json" />
     </label>
@@ -138,7 +167,10 @@
           >
             {url.active ? "Deactivate" : "Activate"}
           </button>
-          <button onclick={() => removeUrl(i)} class="text-red-600 hover:text-red-800 text-sm font-medium transition duration-200 ease-in-out">
+          <button
+            onclick={() => removeUrl(i)}
+            class="text-red-600 hover:text-red-800 text-sm font-medium transition duration-200 ease-in-out"
+          >
             Remove
           </button>
         </div>
