@@ -117,7 +117,7 @@
   <div class="mb-6">
     <button
       onclick={toggleExtension}
-      class="w-full px-5 py-3 font-bold text-white rounded-lg transition duration-200 ease-in-out shadow-md text-lg
+      class="w-full px-5 py-3 font-bold text-white rounded-lg transition duration-200 ease-in-out shadow-md text-lg cursor-pointer
       {extensionActive ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}"
     >
       {extensionActive ? "✓ Extension Active" : "✗ Extension Inactive"}
@@ -134,7 +134,7 @@
     />
     <button
       onclick={addUrl}
-      class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out shadow-md"
+      class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out shadow-md cursor-pointer"
     >
       Add
     </button>
@@ -143,7 +143,7 @@
   <div class="flex gap-3 mb-6">
     <button
       onclick={exportRules}
-      class="flex-1 px-5 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200 ease-in-out shadow-md"
+      class="flex-1 px-5 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200 ease-in-out shadow-md cursor-pointer"
     >
       Export Rules
     </button>
@@ -162,14 +162,14 @@
         <div class="flex items-center gap-2">
           <button
             onclick={() => toggleUrlStatus(i)}
-            class="text-sm font-medium px-3 py-1 rounded-md transition duration-200 ease-in-out shadow-sm
+            class="text-sm font-medium px-3 py-1 rounded-md transition duration-200 ease-in-out shadow-sm cursor-pointer
             {url.active ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-gray-300 text-gray-800 hover:bg-gray-400'}"
           >
             {url.active ? "Deactivate" : "Activate"}
           </button>
           <button
             onclick={() => removeUrl(i)}
-            class="text-red-600 hover:text-red-800 text-sm font-medium transition duration-200 ease-in-out"
+            class="text-red-600 hover:text-red-800 text-sm font-medium transition duration-200 ease-in-out cursor-pointer"
           >
             Remove
           </button>
