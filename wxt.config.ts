@@ -6,7 +6,7 @@ export default defineConfig({
   manifest: {
     name: "JavaScript Blocker",
     description: "Block JavaScript on websites",
-    permissions: ["storage", "declarativeNetRequest", "declarativeNetRequestFeedback"],
+    permissions: ["storage", "declarativeNetRequest", "declarativeNetRequestFeedback", "webNavigation"],
     host_permissions: ["<all_urls>"],
   },
   srcDir: "src",
