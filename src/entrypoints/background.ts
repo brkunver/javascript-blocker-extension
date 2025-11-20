@@ -2,6 +2,47 @@ import { blockedJsUrls, isExtensionActive } from "@@/utils/storage"
 import type { blockedUrl } from "@@/utils/storage"
 
 export default defineBackground(() => {
+  // Track blocked requests per tab
+  const blockedCountPerTab = new Map<number, number>()
+
+  // Set badge background color (red like uBlock Origin)
+  browser.action.setBadgeBackgroundColor({ color: "#d9534f" })
+
+  function updateBadge(tabId: number) {
+    const count = blockedCountPerTab.get(tabId) || 0
+    const badgeText = count > 0 ? count.toString() : ""
+
+    browser.action.setBadgeText({
+      text: badgeText,
+      tabId: tabId,
+    })
+  }
+
+  // Listen for blocked requests using declarativeNetRequest
+  if (browser.declarativeNetRequest.onRuleMatchedDebug) {
+    browser.declarativeNetRequest.onRuleMatchedDebug.addListener(details => {
+      if (details.request.tabId && details.request.tabId !== -1) {
+        const currentCount = blockedCountPerTab.get(details.request.tabId) || 0
+        blockedCountPerTab.set(details.request.tabId, currentCount + 1)
+        updateBadge(details.request.tabId)
+      }
+    })
+  }
+
+  // Reset counter when navigating to a new page
+  browser.webNavigation.onCommitted.addListener(details => {
+    if (details.frameId === 0) {
+      // Main frame navigation
+      blockedCountPerTab.set(details.tabId, 0)
+      updateBadge(details.tabId)
+    }
+  })
+
+  // Clean up when tab is closed
+  browser.tabs.onRemoved.addListener(tabId => {
+    blockedCountPerTab.delete(tabId)
+  })
+
   async function updateRules(urls: blockedUrl[] | null | undefined) {
     try {
       // Clean the incoming URL list: remove spaces and filter out empty elements.
