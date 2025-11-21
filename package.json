@@ -2,7 +2,7 @@
   "name": "javascript-blocker-extension",
   "description": "Block user defined javascript on websites",
   "author": "burakhanunver@gmail.com",
-  "private": true,
+  "private": false,
   "version": "2.0.0",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip:all": "git checkout main && concurrently \"bun run zip\" \"bun run zip:firefox\" \"bun run zip:edge\" && git checkout dev",
+    "zip:all": "git checkout main && concurrently \"bun run zip\" \"bun run zip:firefox\" && git checkout dev",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "zip:edge": "wxt zip -b edge",
