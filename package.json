@@ -3,7 +3,7 @@
   "description": "Block user defined javascript on websites",
   "author": "burakhanunver@gmail.com",
   "private": false,
-  "version": "2.2.2",
+  "version": "2.3.o",
   "type": "module",
   "scripts": {
     "dev": "wxt",
