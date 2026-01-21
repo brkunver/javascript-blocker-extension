@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { i18n } from "#i18n"
   import { blockedJsUrls, isExtensionActive, type blockedUrl } from "@@/utils/storage"
 
   let urls = $state<blockedUrl[]>([])
   let input = $state<string>("")
   let extensionActive = $state<boolean>(true)
+
+  const t = i18n
 
   $effect(() => {
     blockedJsUrls.getValue().then(loadedUrls => {
