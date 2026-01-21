@@ -1,3 +1,5 @@
+extensionName: "JS Engelleme Eklentisi"
+extensionDescription: "İstenmeyen JavaScript dosyalarının web sitelerinde çalışmasını engelleyin"
 popup:
   title: "JS Engelleme Eklentisi"
   extensionActive: "✓ Eklenti Aktif"

@@ -1,3 +1,5 @@
+extensionName: "Επέκταση Αποκλεισμού JS"
+extensionDescription: "Αποτρέψτε την εκτέλεση ανεπιθύμητων αρχείων JavaScript σε ιστοσελίδες"
 popup:
   title: "Επέκταση Αποκλεισμού JS"
   extensionActive: "✓ Επέκταση Ενεργή"

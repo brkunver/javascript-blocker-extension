@@ -1,3 +1,5 @@
+extensionName: "JS 阻拦器扩展"
+extensionDescription: "阻止不需要的 JavaScript 文件在网站上运行"
 popup:
   title: "JS 阻拦器扩展"
   extensionActive: "✎ 扩展已激活"

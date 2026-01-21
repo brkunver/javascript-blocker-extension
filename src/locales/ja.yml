@@ -1,3 +1,5 @@
+extensionName: "JSブロッカー拡張機能"
+extensionDescription: "不要なJavaScriptファイルがウェブサイトで実行されるのをブロックする"
 popup:
   title: "JSブロッカー拡張機能"
   extensionActive: "✓ 拡張機能有効"

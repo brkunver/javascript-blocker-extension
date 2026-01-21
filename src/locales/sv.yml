@@ -1,6 +1,8 @@
+extensionName: "JS Blocker Tillägg"
+extensionDescription: "Förhindra oönskade JavaScript-filer från att köras på webbplatser"
 popup:
   title: "JS Blocker Tillägg"
-  extensionActive: "✎ Tillägg Aktivt"
+  extensionActive: "✓ Tillägg Aktivt"
   extensionInactive: "✗ Tillägg Inaktivt"
   addUrl: "Lägg till"
   exportRules: "Exportera Regler"

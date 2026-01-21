@@ -1,6 +1,8 @@
+extensionName: "Extensão JS Blocker"
+extensionDescription: "Impedir que arquivos JavaScript indesejados sejam executados em sites"
 popup:
   title: "Extensão JS Blocker"
-  extensionActive: "✎ Extensão Ativa"
+  extensionActive: "✓ Extensão Ativa"
   extensionInactive: "✗ Extensão Inativa"
   addUrl: "Adicionar"
   exportRules: "Exportar Regras"

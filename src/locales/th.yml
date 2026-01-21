@@ -1,6 +1,8 @@
+extensionName: "ส่วนขยาย JS Blocker"
+extensionDescription: "ป้องกันไม่ให้ไฟล์ JavaScript ที่ไม่ต้องการทำงานบนเว็บไซต์"
 popup:
   title: "ส่วนขยาย JS Blocker"
-  extensionActive: "✎ ส่วนขยายทำงาน"
+  extensionActive: "✓ ส่วนขยายทำงาน"
   extensionInactive: "✗ ส่วนขยายไม่ทำงาน"
   addUrl: "เพิ่ม"
   exportRules: "ส่งออกกฎ"

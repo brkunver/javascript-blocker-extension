@@ -1,3 +1,5 @@
+extensionName: "ملحق حاجز جافا سكريبت"
+extensionDescription: "منع ملفات جافا سكريبت غير المرغوب فيها من التشغيل على مواقع الويب"
 popup:
   title: "ملحق حاجز جافا سكريبت"
   extensionActive: "✓ الملحق نشط"

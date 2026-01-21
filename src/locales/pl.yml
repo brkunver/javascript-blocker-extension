@@ -1,6 +1,8 @@
+extensionName: "Rozszerzenie JS Blocker"
+extensionDescription: "Blokuj niechciane pliki JavaScript przed uruchamianiem na stronach internetowych"
 popup:
   title: "Rozszerzenie JS Blocker"
-  extensionActive: "✎ Rozszerzenie Aktywne"
+  extensionActive: "✓ Rozszerzenie Aktywne"
   extensionInactive: "✗ Rozszerzenie Nieaktywne"
   addUrl: "Dodaj"
   exportRules: "Eksportuj Zasady"

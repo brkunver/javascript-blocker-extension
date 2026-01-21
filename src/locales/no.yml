@@ -1,6 +1,8 @@
+extensionName: "JS Blocker Utvidelse"
+extensionDescription: "Forhindre uønskede JavaScript-filer fra å kjøre på nettsider"
 popup:
   title: "JS Blocker Utvidelse"
-  extensionActive: "✎ Utvidelse Aktiv"
+  extensionActive: "✓ Utvidelse Aktiv"
   extensionInactive: "✗ Utvidelse Inaktiv"
   addUrl: "Legg til"
   exportRules: "Eksporter Regler"

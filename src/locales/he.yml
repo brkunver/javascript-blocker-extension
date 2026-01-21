@@ -1,3 +1,5 @@
+extensionName: "תוסף חוסם JS"
+extensionDescription: "מנעו קבצי JavaScript לא רצויים מלרוץ באתרי אינטרנט"
 popup:
   title: "תוסף חוסם JS"
   extensionActive: "✓ התוסף פעיל"

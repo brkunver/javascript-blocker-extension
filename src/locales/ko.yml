@@ -1,3 +1,5 @@
+extensionName: "JS 차단기 확장 프로그램"
+extensionDescription: "원하지 않는 JavaScript 파일이 웹사이트에서 실행되는 것을 차단하세요"
 popup:
   title: "JS 차단기 확장 프로그램"
   extensionActive: "✓ 확장 프로그램 활성"

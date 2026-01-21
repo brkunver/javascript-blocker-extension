@@ -1,3 +1,5 @@
+extensionName: "JS Blocker Udvidelse"
+extensionDescription: "Forhindr uønskede JavaScript-filer i at køre på websteder"
 popup:
   title: "JS Blocker Udvidelse"
   extensionActive: "✓ Udvidelse Aktiv"

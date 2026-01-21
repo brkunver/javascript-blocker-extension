@@ -1,3 +1,5 @@
+extensionName: "JS Estäjä Laajennus"
+extensionDescription: "Estä ei-toivottujen JavaScript-tiedostojen suorittaminen verkkosivuilla"
 popup:
   title: "JS Estäjä Laajennus"
   extensionActive: "✓ Laajennus Aktiivinen"
