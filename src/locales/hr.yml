@@ -1,3 +1,5 @@
+extensionName: "Ekstenzija za blokiranje JS-a"
+extensionDescription: "Blokirajte pokretanje neželjenih JavaScript datoteka na web stranicama"
 popup:
   title: "JS Blocker Ekstenzija"
   extensionActive: "✓ Ekstenzija Aktivna"

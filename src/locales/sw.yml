@@ -1,3 +1,5 @@
+extensionName: "Kiongezi cha Kuzuia JS"
+extensionDescription: "Zuia faili za JavaScript zisizohitajika kuendesha kwenye tovuti"
 popup:
   title: "Kiendelezi cha JS Blocker"
   extensionActive: "✎ Kiendelezi Kinachofanya Kazi"

@@ -1,3 +1,5 @@
+extensionName: "Sambungan Penyekat JS"
+extensionDescription: "Sekat fail JavaScript yang tidak dikehendaki daripada dijalankan di tapak web"
 popup:
   title: "Sambungan JS Blocker"
   extensionActive: "✎ Sambungan Aktif"

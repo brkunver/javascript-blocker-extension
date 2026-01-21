@@ -1,3 +1,5 @@
+extensionName: "Ekstensi Pemblokir JS"
+extensionDescription: "Blokir file JavaScript yang tidak diinginkan agar tidak berjalan di situs web"
 popup:
   title: "Ekstensi JS Blocker"
   extensionActive: "✓ Ekstensi Aktif"

@@ -1,3 +1,5 @@
+extensionName: "JS bloķēšanas paplašinājums"
+extensionDescription: "Bloķēt nevēlamu JavaScript failu palaišanu tīmekļa vietnēs"
 popup:
   title: "JS Bloķētāja Paplašinājums"
   extensionActive: "✓ Paplašinājums Aktīvs"

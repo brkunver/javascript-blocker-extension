@@ -1,3 +1,5 @@
+extensionName: "JS ಬ್ಲಾಕರ್ ವಿಸ್ತರಣೆ"
+extensionDescription: "ವೆಬ್‌ಸೈಟ್‌ಗಳಲ್ಲಿ ಅನಗತ್ಯ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಫೈಲ್‌ಗಳನ್ನು ಚಾಲನೆ ಮಾಡದಂತೆ ತಡೆಯಿರಿ"
 popup:
   title: "JS ಬ್ಲಾಕರ್ ವಿಸ್ತರಣೆ"
   extensionActive: "✓ ವಿಸ್ತರಣೆ ಸಕ್ರಿಯ"

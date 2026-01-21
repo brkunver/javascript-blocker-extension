@@ -1,3 +1,5 @@
+extensionName: "JS Blokkoló Bővítmény"
+extensionDescription: "Nem kívánt JavaScript fájlok futtatásának letiltása webhelyeken"
 popup:
   title: "JS Blokkoló Kiterjesztés"
   extensionActive: "✓ Kiterjesztés Aktív"

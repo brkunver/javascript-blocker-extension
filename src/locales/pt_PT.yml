@@ -1,3 +1,5 @@
+extensionName: "Extensão de Bloqueio de JS"
+extensionDescription: "Bloqueie a execução de ficheiros JavaScript indesejados em websites"
 popup:
   title: "Extensão JS Blocker"
   extensionActive: "✎ Extensão Ativa"

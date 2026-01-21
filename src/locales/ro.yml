@@ -1,3 +1,5 @@
+extensionName: "Extensie de blocare JS"
+extensionDescription: "Blocați rularea fișierelor JavaScript nedorite pe site-uri web"
 popup:
   title: "Extensie JS Blocker"
   extensionActive: "✎ Extensie Activă"

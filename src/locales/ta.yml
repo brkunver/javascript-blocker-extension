@@ -1,3 +1,5 @@
+extensionName: "JS தடுப்பு நீட்சி"
+extensionDescription: "இணையதளங்களில் தேவையற்ற ஜாவாஸ்கிரிப்ட் கோப்புகள் இயங்குவதைத் தடுக்கவும்"
 popup:
   title: "JS தடுப்பு நீட்சிப்பை"
   extensionActive: "✎ நீட்சிப்பை செயலில்"

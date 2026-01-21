@@ -1,3 +1,5 @@
+extensionName: "JS blookeerija laiendus"
+extensionDescription: "Blokeeri soovimatute JavaScripti failide käitamine veebisaitidel"
 popup:
   title: "JS Blokeerija Laiendus"
   extensionActive: "✓ Laiendus Aktiivne"
