@@ -1,3 +1,5 @@
+extensionName: "JS బ్లాకర్ పొడిగింత"
+extensionDescription: "వెబ్‌సైట్‌లలో అవాంఛిత జావాస్క్రిప్ట్ ఫైల్‌లు అమలు కాకుండా నిరోధించండి"
 popup:
   title: "JS బ్లాకర్ పొడిగింపు"
   extensionActive: "✎ పొడిగింపు క్రియాశీలం"

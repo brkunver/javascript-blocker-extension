@@ -1,3 +1,5 @@
+extensionName: "JS Blocker Extension"
+extensionDescription: "I-block ang mga hindi gustong JavaScript file mula sa pagtakbo sa mga website"
 popup:
   title: "JS Blocker Extension"
   extensionActive: "✓ Extension Active"

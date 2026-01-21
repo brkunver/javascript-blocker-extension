@@ -1,3 +1,5 @@
+extensionName: "Extensió de bloqueig de JS"
+extensionDescription: "Bloqueja l'execució de fitxers JavaScript no desitjats en llocs web"
 popup:
   title: "Extensió Bloquejador JS"
   extensionActive: "✓ Extensió Activa"

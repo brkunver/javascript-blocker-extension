@@ -1,3 +1,5 @@
+extensionName: "افزونه مسدود کننده JS"
+extensionDescription: "از اجرای فایل های جاوا اسکریپت ناخواسته در وب سایت ها جلوگیری کنید"
 popup:
   title: "افزونه مسدودکننده جاوا اسکریپت"
   extensionActive: "✓ افزونه فعال"

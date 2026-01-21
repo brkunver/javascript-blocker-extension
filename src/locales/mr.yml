@@ -1,3 +1,5 @@
+extensionName: "JS ब्लॉकर विस्तार"
+extensionDescription: "वेबसाइटवर नको असलेल्या JavaScript फाइल्स चालवण्यापासून रोखा"
 popup:
   title: "JS ब्लॉकर एक्सटेंशन"
   extensionActive: "✎ एक्सटेंशन सक्रिय"

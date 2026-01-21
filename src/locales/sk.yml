@@ -1,3 +1,5 @@
+extensionName: "Rozšírenie na blokovanie JS"
+extensionDescription: "Blokujte spúšťanie nežiaducich súborov JavaScript na webových stránkach"
 popup:
   title: "JS Bloker Rozšírenie"
   extensionActive: "✎ Rozšírenie Aktívne"

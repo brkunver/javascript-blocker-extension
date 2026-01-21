@@ -1,3 +1,5 @@
+extensionName: "JS બ્લૉકર એક્સ્ટેંશન"
+extensionDescription: "વેબસાઇટ્સ પર અનિચ્છનીય JavaScript ફાઇલોને ચાલતી અટકાવો"
 popup:
   title: "JS બ્લોકર એક્સટેન્શન"
   extensionActive: "✓ એક્સટેન્શન સક્રિય"

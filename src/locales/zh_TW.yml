@@ -1,3 +1,5 @@
+extensionName: "JS 封鎖擴充功能"
+extensionDescription: "封鎖網站上不必要的 JavaScript 檔案執行"
 popup:
   title: "JS 阻擋器擴充功能"
   extensionActive: "✎ 擴充功能已啟用"

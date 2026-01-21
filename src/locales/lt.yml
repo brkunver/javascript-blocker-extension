@@ -1,3 +1,5 @@
+extensionName: "JS blokavimo plėtinys"
+extensionDescription: "Blokuokite nepageidaujamų „JavaScript“ failų vykdymą svetainėse"
 popup:
   title: "JS Blokatoriaus Plėtinys"
   extensionActive: "✓ Plėtinys Aktyvus"
