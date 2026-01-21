@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { i18n } from "#i18n"
   import { blockedJsUrls, isExtensionActive, type blockedUrl } from "@@/utils/storage"
 
   let urls = $state<blockedUrl[]>([])
   let input = $state<string>("")
   let extensionActive = $state<boolean>(true)
+
+  const t = i18n.t
 
   $effect(() => {
     blockedJsUrls.getValue().then(loadedUrls => {
@@ -46,13 +49,13 @@
     try {
       new URL(processedInput) // Attempt to create a URL object
     } catch (e) {
-      alert("Please enter a valid URL.") // Or some other user feedback
+      alert(t("popup.invalidUrl")) // Or some other user feedback
       return
     }
 
     // Check for duplicates before adding
     if (urls.some(item => item.url === processedInput)) {
-      alert("This URL is already in the list.")
+      alert(t("popup.urlAlreadyExists"))
       input = "" // Clear input even if it's a duplicate
       return
     }
@@ -99,12 +102,12 @@
           )
         ) {
           await blockedJsUrls.setValue(importedUrls)
-          alert("Rules imported successfully!")
+          alert(t("popup.rulesImportedSuccessfully"))
         } else {
-          alert("Invalid file format.")
+          alert(t("popup.invalidFileFormat"))
         }
       } catch (error) {
-        alert("Error reading or parsing file.")
+        alert(t("popup.errorReadingFile"))
       }
     }
     reader.readAsText(file)
@@ -112,7 +115,7 @@
 </script>
 
 <main class="p-6 max-w-lg mx-auto min-h-[400px] min-w-[400px] bg-gray-50 rounded-lg shadow-lg">
-  <h1 class="text-3xl font-extrabold mb-6 text-center text-gray-800">JS Blocker</h1>
+  <h1 class="text-3xl font-extrabold mb-6 text-center text-gray-800">{t("popup.title")}</h1>
 
   <div class="mb-6">
     <button
@@ -120,7 +123,7 @@
       class="w-full px-5 py-3 font-bold text-white rounded-lg transition duration-200 ease-in-out shadow-md text-lg cursor-pointer
       {extensionActive ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}"
     >
-      {extensionActive ? "✓ Extension Active" : "✗ Extension Inactive"}
+      {extensionActive ? t("popup.extensionActive") : t("popup.extensionInactive")}
     </button>
   </div>
 
@@ -136,7 +139,7 @@
       onclick={addUrl}
       class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out shadow-md cursor-pointer"
     >
-      Add
+      {t("popup.addUrl")}
     </button>
   </div>
 
@@ -145,12 +148,12 @@
       onclick={exportRules}
       class="flex-1 px-5 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200 ease-in-out shadow-md cursor-pointer"
     >
-      Export Rules
+      {t("popup.exportRules")}
     </button>
     <label
       class="flex-1 px-5 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-200 ease-in-out cursor-pointer text-center shadow-md"
     >
-      Import Rules
+      {t("popup.importRules")}
       <input type="file" class="hidden" onchange={importRules} accept=".json" />
     </label>
   </div>
@@ -165,18 +168,18 @@
             class="text-sm font-medium px-3 py-1 rounded-md transition duration-200 ease-in-out shadow-sm cursor-pointer
             {url.active ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-gray-300 text-gray-800 hover:bg-gray-400'}"
           >
-            {url.active ? "Deactivate" : "Activate"}
+            {url.active ? t("popup.deactivate") : t("popup.activate")}
           </button>
           <button
             onclick={() => removeUrl(i)}
             class="text-red-600 hover:text-red-800 text-sm font-medium transition duration-200 ease-in-out cursor-pointer"
           >
-            Remove
+            {t("popup.remove")}
           </button>
         </div>
       </li>
     {:else}
-      <li class="text-gray-500 text-center py-6 text-md italic">No blocked JS yet. Add a URL to get started!</li>
+      <li class="text-gray-500 text-center py-6 text-md italic">{t("popup.noBlockedJs")}</li>
     {/each}
   </ul>
 </main>

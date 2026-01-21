@@ -34,5 +34,8 @@
     "@tailwindcss/oxide",
     "esbuild",
     "spawn-sync"
-  ]
+  ],
+  "dependencies": {
+    "@wxt-dev/i18n": "^0.2.4"
+  }
 }
