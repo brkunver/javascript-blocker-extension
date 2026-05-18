@@ -10,13 +10,13 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip:all": "git checkout main && concurrently \"bun run zip\" \"bun run zip:firefox\" && git checkout dev",
+    "zip:all": "git checkout main && concurrently \"pnpm run zip\" \"pnpm run zip:firefox\" && git checkout dev",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "zip:edge": "wxt zip -b edge",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "postinstall": "wxt prepare",
-    "manager": "bun manager.cjs bun"
+    "manager": "pnpm manager.cjs pnpm"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",
