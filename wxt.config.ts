@@ -9,6 +9,14 @@ export default defineConfig({
     permissions: ["storage", "declarativeNetRequest", "declarativeNetRequestFeedback", "webNavigation"],
     host_permissions: ["<all_urls>"],
     default_locale: "en",
+    browser_specific_settings: {
+      gecko: {
+        id: "javascript-blocker-extension@kunver.com",
+        data_collection_permissions: {
+          required: ["none"],
+        },
+      },
+    },
   },
   srcDir: "src",
   modules: ["@wxt-dev/module-svelte", "@wxt-dev/i18n/module"],
