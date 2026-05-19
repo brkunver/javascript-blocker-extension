@@ -1,4 +1,4 @@
-import { blockedJsUrls, isExtensionActive } from "@@/utils/storage"
+import { blockedJsUrls, isExtensionActive, normalizeBlockedUrls } from "@@/utils/storage"
 import type { blockedUrl } from "@@/utils/storage"
 
 export default defineBackground(() => {
@@ -21,10 +21,11 @@ export default defineBackground(() => {
   // Listen for blocked requests using declarativeNetRequest
   if (browser.declarativeNetRequest.onRuleMatchedDebug) {
     browser.declarativeNetRequest.onRuleMatchedDebug.addListener(details => {
-      if (details.request.tabId && details.request.tabId !== -1) {
-        const currentCount = blockedCountPerTab.get(details.request.tabId) || 0
-        blockedCountPerTab.set(details.request.tabId, currentCount + 1)
-        updateBadge(details.request.tabId)
+      const tabId = details.request.tabId
+      if (typeof tabId === "number" && tabId !== -1) {
+        const currentCount = blockedCountPerTab.get(tabId) || 0
+        blockedCountPerTab.set(tabId, currentCount + 1)
+        updateBadge(tabId)
       }
     })
   }
@@ -45,8 +46,8 @@ export default defineBackground(() => {
 
   async function updateRules(urls: blockedUrl[] | null | undefined) {
     try {
-      // Clean the incoming URL list: remove spaces and filter out empty elements.
-      const activeUrls = (urls || []).filter(u => u.active)
+      const storedUrls = urls ?? (await blockedJsUrls.getValue())
+      const activeUrls = normalizeBlockedUrls(storedUrls).filter(u => u.active)
       const validUrls = activeUrls.map(u => u.url.trim()).filter(Boolean)
       const oldRules = await browser.declarativeNetRequest.getDynamicRules()
       const oldRuleIds = oldRules.map(r => r.id)
@@ -83,8 +84,7 @@ export default defineBackground(() => {
   }
 
   // Load existing rules when the extension starts
-  blockedJsUrls.getValue().then(() => updateRules(null))
-  isExtensionActive.getValue().then(() => updateRules(null))
+  updateRules(null)
 
   // Monitor changes in storage and update rules
   blockedJsUrls.watch(newValue => {

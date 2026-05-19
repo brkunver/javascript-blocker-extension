@@ -1,6 +1,12 @@
 <script lang="ts">
   import { i18n } from "#i18n"
-  import { blockedJsUrls, isExtensionActive, type blockedUrl } from "@@/utils/storage"
+  import {
+    blockedJsUrls,
+    isExtensionActive,
+    normalizeBlockedUrlInput,
+    normalizeBlockedUrls,
+    type blockedUrl,
+  } from "@@/utils/storage"
 
   let urls = $state<blockedUrl[]>([])
   let input = $state<string>("")
@@ -37,24 +43,14 @@
   }
 
   async function addUrl() {
-    let processedInput = input.trim()
-    if (!processedInput) return
-
-    // Add https:// if missing
-    if (!processedInput.startsWith("http://") && !processedInput.startsWith("https://")) {
-      processedInput = "https://" + processedInput
-    }
-
-    // Validate URL
-    try {
-      new URL(processedInput) // Attempt to create a URL object
-    } catch (e) {
-      alert(t("popup.invalidUrl")) // Or some other user feedback
+    const processedInput = normalizeBlockedUrlInput(input)
+    if (!processedInput) {
+      alert(t("popup.invalidUrl"))
       return
     }
 
     // Check for duplicates before adding
-    if (urls.some(item => item.url === processedInput)) {
+    if (urls.some(item => item.url.toLowerCase() === processedInput.toLowerCase())) {
       alert(t("popup.urlAlreadyExists"))
       input = "" // Clear input even if it's a duplicate
       return
@@ -94,13 +90,8 @@
     const reader = new FileReader()
     reader.onload = async e => {
       try {
-        const importedUrls = JSON.parse(e.target?.result as string)
-        if (
-          Array.isArray(importedUrls) &&
-          importedUrls.every(
-            item => typeof item === "object" && typeof item.url === "string" && typeof item.active === "boolean",
-          )
-        ) {
+        const importedUrls = normalizeBlockedUrls(JSON.parse(e.target?.result as string))
+        if (importedUrls.length > 0) {
           await blockedJsUrls.setValue(importedUrls)
           alert(t("popup.rulesImportedSuccessfully"))
         } else {

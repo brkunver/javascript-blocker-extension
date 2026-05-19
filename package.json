@@ -10,7 +10,7 @@
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
     "build:firefox": "wxt build -b firefox",
-    "zip:all": "git checkout main && concurrently \"pnpm run zip\" \"pnpm run zip:firefox\" && git checkout dev",
+    "zip:all": "node scripts/zip-all.cjs",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "zip:edge": "wxt zip -b edge",
