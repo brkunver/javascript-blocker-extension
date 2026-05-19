@@ -5,7 +5,7 @@ export type blockedUrl = {
   active: boolean
 }
 
-export const blockedJsUrls = storage.defineItem<blockedUrl[]>("local:blockedJsUrls", {
+export const blockedJsUrls = storage.defineItem<blockedUrl[]>("sync:blockedJsUrls", {
   version: 2,
   fallback: [],
   migrations: {
