@@ -5,7 +5,7 @@ export type blockedUrl = {
   active: boolean
 }
 
-const MAX_RULES = 5000
+export const MAX_RULES = 5000
 
 function hasProtocol(value: string) {
   return /^https?:\/\//i.test(value)
@@ -27,6 +27,7 @@ export function normalizeBlockedUrlInput(value: unknown): string | null {
 
   if (hasWildcard(trimmed)) {
     if (!hasSearchableText(trimmed)) return null
+    if (/[^\x20-\x7E]/.test(trimmed)) return null
     return trimmed
   }
 

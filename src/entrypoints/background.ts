@@ -1,12 +1,23 @@
 import { blockedJsUrls, isExtensionActive, normalizeBlockedUrls } from "@@/utils/storage"
-import type { blockedUrl } from "@@/utils/storage"
 
 export default defineBackground(() => {
-  // Track blocked requests per tab
-  const blockedCountPerTab = new Map<number, number>()
+  const hasNativeBadge = typeof browser.declarativeNetRequest.setExtensionActionOptions === "function"
 
-  // Set badge background color (red like uBlock Origin)
-  browser.action.setBadgeBackgroundColor({ color: "#d9534f" })
+  async function configureBadge() {
+    try {
+      await browser.action.setBadgeBackgroundColor({ color: "#d9534f" })
+      if (hasNativeBadge) {
+        await browser.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true })
+      }
+    } catch (error) {
+      console.error("JavaScript Blocker: Error configuring badge:", error)
+    }
+  }
+
+  void configureBadge()
+
+  // Fallback for browsers without native action counts during development.
+  const blockedCountPerTab = new Map<number, number>()
 
   function updateBadge(tabId: number) {
     const count = blockedCountPerTab.get(tabId) || 0
@@ -19,7 +30,7 @@ export default defineBackground(() => {
   }
 
   // Listen for blocked requests using declarativeNetRequest
-  if (browser.declarativeNetRequest.onRuleMatchedDebug) {
+  if (!hasNativeBadge && import.meta.env.DEV && browser.declarativeNetRequest.onRuleMatchedDebug) {
     browser.declarativeNetRequest.onRuleMatchedDebug.addListener(details => {
       const tabId = details.request.tabId
       if (typeof tabId === "number" && tabId !== -1) {
@@ -32,7 +43,7 @@ export default defineBackground(() => {
 
   // Reset counter when navigating to a new page
   browser.webNavigation.onCommitted.addListener(details => {
-    if (details.frameId === 0) {
+    if (!hasNativeBadge && details.frameId === 0) {
       // Main frame navigation
       blockedCountPerTab.set(details.tabId, 0)
       updateBadge(details.tabId)
@@ -44,9 +55,9 @@ export default defineBackground(() => {
     blockedCountPerTab.delete(tabId)
   })
 
-  async function updateRules(urls: blockedUrl[] | null | undefined) {
+  async function updateRules() {
     try {
-      const storedUrls = urls ?? (await blockedJsUrls.getValue())
+      const storedUrls = await blockedJsUrls.getValue()
       const activeUrls = normalizeBlockedUrls(storedUrls).filter(u => u.active)
       const validUrls = activeUrls.map(u => u.url.trim()).filter(Boolean)
       const oldRules = await browser.declarativeNetRequest.getDynamicRules()
@@ -76,22 +87,32 @@ export default defineBackground(() => {
         removeRuleIds: oldRuleIds,
         addRules: newRules,
       })
-
-      console.log("JavaScript Blocker: Rules updated successfully.", newRules)
     } catch (error) {
       console.error("JavaScript Blocker: Error updating rules:", error)
     }
   }
 
-  // Load existing rules when the extension starts
-  updateRules(null)
+  let updating = false
+  let updatePending = false
 
-  // Monitor changes in storage and update rules
-  blockedJsUrls.watch(newValue => {
-    updateRules(newValue)
-  })
+  async function scheduleRuleUpdate() {
+    updatePending = true
+    if (updating) {
+      return
+    }
 
-  isExtensionActive.watch(() => {
-    updateRules(null)
-  })
+    updating = true
+    try {
+      while (updatePending) {
+        updatePending = false
+        await updateRules()
+      }
+    } finally {
+      updating = false
+    }
+  }
+
+  blockedJsUrls.watch(scheduleRuleUpdate)
+  isExtensionActive.watch(scheduleRuleUpdate)
+  void scheduleRuleUpdate()
 })

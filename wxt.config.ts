@@ -20,10 +20,10 @@ export default defineConfig({
   },
   srcDir: "src",
   modules: ["@wxt-dev/module-svelte", "@wxt-dev/i18n/module"],
+  zip: {
+    excludeSources: ["**/*.log"],
+  },
   vite: () => ({
     plugins: [tailwindcss()],
   }),
-  webExt: {
-    disabled: true,
-  },
 })
